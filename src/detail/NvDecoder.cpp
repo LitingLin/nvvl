@@ -5,6 +5,8 @@
 #include <queue>
 #include <sstream>
 #include <string>
+#include <thread>
+#include <chrono>
 
 #include <cuda.h>
 #include <nvml.h>
@@ -195,7 +197,7 @@ int NvDecoder::handle_decode_(CUVIDPICPARAMS* pic_params) {
                << "for decode output buffer to become available";
             throw std::runtime_error(ss.str());
         }
-        usleep(sleep_period);
+        std::this_thread::sleep_for(std::chrono::microseconds(sleep_period));
         if (done_) return 0;
     }
 

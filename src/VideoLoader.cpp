@@ -527,7 +527,7 @@ void VideoLoader::receive_frames(PictureSequence& sequence) {
 void VideoLoader::impl::receive_frames(PictureSequence& sequence) {
     auto startup_timeout = 1000;
     while (!vid_decoder_) {
-        usleep(500);
+		std::this_thread::sleep_for(std::chrono::microseconds(500));
         if (startup_timeout-- == 0) {
             throw std::runtime_error("Timeout waiting for a valid decoder");
         }

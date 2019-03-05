@@ -61,6 +61,7 @@ typedef void* VideoLoaderHandle;
  *
  * Uses default log_level, use nvvl_set_log_level to set a level
  */
+NVVL_EXPORT
 VideoLoaderHandle nvvl_create_video_loader(int device_id);
 
 /**
@@ -68,57 +69,68 @@ VideoLoaderHandle nvvl_create_video_loader(int device_id);
  *
  * Use when you want to set the log level right from creation
  */
+NVVL_EXPORT
 VideoLoaderHandle nvvl_create_video_loader_with_log(int device_id, enum LogLevel log_level);
 
 /**
  * Frees the VideoLoader
  */
+NVVL_EXPORT
 void nvvl_destroy_video_loader(VideoLoaderHandle loader);
 
 /**
  * Parses headers of filename to return width and height of the video
  */
+NVVL_EXPORT
 struct Size nvvl_video_size_from_file(const char* filename);
 
 /**
  * Wrapper for VideoLoader::video_size()
  */
+NVVL_EXPORT
 struct Size nvvl_video_size(VideoLoaderHandle loader);
 
 /**
  * Wrapper for VideoLoader::frame_count()
  */
+NVVL_EXPORT
 int nvvl_frame_count(VideoLoaderHandle loader, const char* filename);
 
 /**
  * Wrapper for VideoLoader::read_sequence()
  */
+NVVL_EXPORT
 void nvvl_read_sequence(VideoLoaderHandle loader, const char* filename,
                         int frame, int count);
 
 /**
  * Wrapper for VideoLoader::receive_frames()
  */
+NVVL_EXPORT
 PictureSequenceHandle nvvl_receive_frames(VideoLoaderHandle loader, PictureSequenceHandle sequence);
 
 /**
  * Wrapper for VideoLoader::receive_frames_sync()
  */
+NVVL_EXPORT
 PictureSequenceHandle nvvl_receive_frames_sync(VideoLoaderHandle loader, PictureSequenceHandle sequence);
 
 /**
  * Wrapper for VideoLoader::get_stats()
  */
+NVVL_EXPORT
 struct VideoLoaderStats nvvl_get_stats(VideoLoaderHandle loader);
 
 /**
  * Wrapper for VideoLoader::reset_stats()
  */
+NVVL_EXPORT
 void nvvl_reset_stats(VideoLoaderHandle loader);
 
 /**
  * Wrapper for VideoLoader::set_log_level()
  */
+NVVL_EXPORT
 void nvvl_set_log_level(VideoLoaderHandle loader, enum LogLevel level);
 
 #ifdef __cplusplus
@@ -126,7 +138,7 @@ void nvvl_set_log_level(VideoLoaderHandle loader, enum LogLevel level);
 
 namespace NVVL {
 
-class VideoLoader {
+class NVVL_EXPORT VideoLoader {
   public:
     /**
      * Overload of full constructor, see VideoLoader::VideoLoader

@@ -149,8 +149,6 @@ void PictureSequence::impl::wait(cudaStream_t stream) const {
 
 } // namespace NVVL
 
-extern "C" {
-
 using PictureSequence = NVVL::PictureSequence;
 
 PictureSequenceHandle nvvl_create_sequence(uint16_t count) {
@@ -331,6 +329,4 @@ void nvvl_sequence_stream_wait(PictureSequenceHandle sequence, cudaStream_t stre
 void nvvl_free_sequence(PictureSequenceHandle sequence) {
     auto ps = reinterpret_cast<PictureSequence*>(sequence);
     delete ps;
-}
-
 }

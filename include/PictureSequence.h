@@ -1,5 +1,21 @@
 #pragma once
 
+#if defined _MSC_VER
+#ifdef NVVL_BUILD_DLL
+#define NVVL_EXPORT __declspec(dllexport)
+#else
+#define NVVL_EXPORT __declspec(dllimport)
+#endif
+#elif defined __GNUC__
+#ifdef NVVL_BUILD_DLL
+#define NVVL_EXPORT __attribute__ ((visibility ("default")))
+#else
+#define NVVL_EXPORT
+#endif
+#else
+#define NVVL_EXPORT
+#endif
+
 #ifndef CFFI
 # include <stddef.h>
 # include <stdint.h>
@@ -247,6 +263,7 @@ enum NVVL_PicMetaType {
  *
  * Creates the sequence on the current device
  */
+NVVL_EXPORT
 PictureSequenceHandle nvvl_create_sequence(uint16_t count);
 
 /**
@@ -254,6 +271,7 @@ PictureSequenceHandle nvvl_create_sequence(uint16_t count);
  *
  * Creates the sequence on the given device
  */
+NVVL_EXPORT
 PictureSequenceHandle nvvl_create_sequence_device(uint16_t count, int device_id);
 
 /**
@@ -261,6 +279,7 @@ PictureSequenceHandle nvvl_create_sequence_device(uint16_t count, int device_id)
  *
  * All options and index_map are copied into the sequence.
  */
+NVVL_EXPORT
 void nvvl_set_layer(PictureSequenceHandle sequence,
                     const struct NVVL_PicLayer* layer,
                     const char* name);
@@ -272,11 +291,13 @@ void nvvl_set_layer(PictureSequenceHandle sequence,
  * metadata `name`, return NULL if the named metadata does not
  * exist. Does not (currently) support strings.
  */
+NVVL_EXPORT
 void* nvvl_get_or_add_meta_array(PictureSequenceHandle sequence, enum NVVL_PicMetaType type, const char* name);
 
 /**
  * Wrapper for PictureSequence::get_meta()
  */
+NVVL_EXPORT
 const void* nvvl_get_meta_array(PictureSequenceHandle sequence, enum NVVL_PicMetaType type, const char* name);
 
 /**
@@ -286,11 +307,13 @@ const void* nvvl_get_meta_array(PictureSequenceHandle sequence, enum NVVL_PicMet
  * \param name name of the metadata to retrieve
  * \param index Which frame index to get
  */
+NVVL_EXPORT
 const char* nvvl_get_meta_str(PictureSequenceHandle sequence, const char* name, int index);
 
 /**
  * Wrapper for PictureSequence::count()
  */
+NVVL_EXPORT
 int nvvl_get_sequence_count(PictureSequenceHandle sequence);
 
 /**
@@ -300,6 +323,7 @@ int nvvl_get_sequence_count(PictureSequenceHandle sequence);
  * so the returned index_map is only valid while the PictureSequence
  * exists.
  */
+NVVL_EXPORT
 struct NVVL_PicLayer nvvl_get_layer(PictureSequenceHandle sequence,
                                enum NVVL_PicDataType type,
                                const char* name);
@@ -310,6 +334,7 @@ struct NVVL_PicLayer nvvl_get_layer(PictureSequenceHandle sequence,
  * Since this is a copy of the layer description, index_map is left
  * NULL to avoid returning a pointer to dynamically allocated memory.
  */
+NVVL_EXPORT
 struct NVVL_PicLayer nvvl_get_layer_indexed(PictureSequenceHandle sequence,
                                        enum NVVL_PicDataType type,
                                        const char* name,
@@ -318,16 +343,19 @@ struct NVVL_PicLayer nvvl_get_layer_indexed(PictureSequenceHandle sequence,
 /**
  * Wrapper for PictureSequence::wait()
  */
+NVVL_EXPORT
 void nvvl_sequence_wait(PictureSequenceHandle sequence);
 
 /**
  * Wrapper for PictureSequence::wait(cudaStream_t)
  */
+NVVL_EXPORT
 void nvvl_sequence_stream_wait(PictureSequenceHandle sequence, cudaStream_t stream);
 
 /**
  * Free a PictureSequence
  */
+NVVL_EXPORT
 void nvvl_free_sequence(PictureSequenceHandle sequence);
 
 #ifdef __cplusplus
@@ -351,7 +379,7 @@ using ColorSpace = NVVL_ColorSpace;
 using PicLayer = NVVL_PicLayer;
 using LayerDesc = NVVL_LayerDesc;
 
-class PictureSequence {
+class NVVL_EXPORT PictureSequence {
   public:
     /** Create an empty PictureSequence on the current device.
      *

@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{bcf6fa3e-17cb-49c5-b8e1-31bf52b71e6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{bd095f42-d043-489d-8dde-5888e206d9a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\detail">
+      <UniqueIdentifier>{e47f021e-a775-4808-a480-fd6ae107609f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\detail\cuda">
+      <UniqueIdentifier>{e7f9aba5-6aba-48a6-a6d2-7b8a8cbb9725}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\VideoLoader.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\PictureSequence.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PictureSequenceImpl.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\detail\CUVideoParser.h">
+      <Filter>src\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\detail\Decoder.h">
+      <Filter>src\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\detail\JoiningThread.h">
+      <Filter>src\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\detail\Logger.h">
+      <Filter>src\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\detail\NvDecoder.h">
+      <Filter>src\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\detail\Queue.h">
+      <Filter>src\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\detail\utils.h">
+      <Filter>src\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\detail\CUContext.h">
+      <Filter>src\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\detail\CUVideoDecoder.h">
+      <Filter>src\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\detail\cuda\imgproc.h">
+      <Filter>src\detail\cuda</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\VideoLoader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PictureSequence.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\detail\Decoder.cpp">
+      <Filter>src\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\detail\JoiningThread.cpp">
+      <Filter>src\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\detail\NvDecoder.cpp">
+      <Filter>src\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\detail\CUContext.cpp">
+      <Filter>src\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\detail\CUVideoDecoder.cpp">
+      <Filter>src\detail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\detail\CUVideoParser.cpp">
+      <Filter>src\detail</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="..\..\src\detail\cuda\imgproc.cu">
+      <Filter>src\detail\cuda</Filter>
+    </CudaCompile>
+  </ItemGroup>
+</Project>
