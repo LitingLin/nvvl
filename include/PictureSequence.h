@@ -460,13 +460,13 @@ class NVVL_EXPORT PictureSequence {
      * \param layer description of the layer
      */
     template<typename T>
-    void set_layer(std::string name, const Layer<T>& layer);
+	void set_layer(std::string name, const Layer<T>& layer);
 
     /**
      * Overload for set_layer that takes a C-style PicLayer
      */
     template<typename T>
-    void set_layer(std::string name, const PicLayer* layer) {
+	void set_layer(std::string name, const PicLayer* layer) {
         auto l = PictureSequence::Layer<T>{};
         l.data = reinterpret_cast<decltype(l.data)>(layer->data);
         l.desc = layer->desc;

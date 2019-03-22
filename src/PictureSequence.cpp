@@ -37,28 +37,19 @@ const PictureSequence::Layer<T>& PictureSequence::get_layer(std::string name) co
 // need to explicitely instantiate these even though they are used by
 // the C interface since g++ with -O2 will inline them in the C
 // functions and not export the symbols
+#define INSTANTIATE(TYPE) \
+template \
+void NVVL_EXPORT PictureSequence::set_layer<TYPE>(std::string, const PictureSequence::Layer<TYPE>&); \
+template \
+PictureSequence::Layer<TYPE> NVVL_EXPORT PictureSequence::get_layer<TYPE>(std::string, int) const; \
+template \
+const PictureSequence::Layer<TYPE> NVVL_EXPORT &PictureSequence::get_layer<TYPE>(std::string) const;
 
-// instantiation code based on:
-// https://stackoverflow.com/questions/5715586/how-to-explicitly-instantiate-a-template-for-all-members-of-mpl-vector-in-c/35895553
-// but tweaked a bit rewritten with mp11. Basically we make a pointer
-// to each function we want and that forces an instantiation. Not very
-// pretty or readable, but makes it so we only have to write the types
-// out once in PictureSequenceImpl.h
-namespace {
-template<class L> struct mp_instantiate_layer_funcs;
-template<template<class...> class L> struct mp_instantiate_layer_funcs<L<>> {};
-template<template<class...> class L, class T1, class... T>
-struct mp_instantiate_layer_funcs<L<T1, T...>> {
-    using PS = PictureSequence;
-    mp_instantiate_layer_funcs() :
-        sl{&PS::set_layer<T1>}, gl{&PS::get_layer<T1>}, gl2{&PS::get_layer<T1>} {}
-    void (PS::*sl)(std::string, const PS::Layer<T1>&);
-    PS::Layer<T1> (PS::*gl)(std::string, int) const;
-    const PS::Layer<T1>& (PS::*gl2)(std::string) const;
-    mp_instantiate_layer_funcs<L<T...>> next;
-};
-static mp_instantiate_layer_funcs<PDTypes> layer_funcs;
-} // end anon namespace
+INSTANTIATE(uint8_t)
+INSTANTIATE(half)
+INSTANTIATE(float)
+
+#undef INSTANTIATE
 
 bool PictureSequence::has_layer(std::string name) const {
     return pImpl->has_layer(name);
@@ -75,20 +66,16 @@ const std::vector<T>& PictureSequence::get_meta(std::string name) const {
 }
 
 // do the same as above for meta funcs
-namespace {
-template<class L> struct mp_instantiate_meta_funcs;
-template<template<class...> class L> struct mp_instantiate_meta_funcs<L<>> {};
-template<template<class...> class L, class T1, class... T>
-struct mp_instantiate_meta_funcs<L<T1, T...>> {
-    using PS = PictureSequence;
-    mp_instantiate_meta_funcs() :
-        goam{&PS::get_or_add_meta<T1>}, gm{&PS::get_meta<T1>} {}
-    std::vector<T1>& (PS::*goam)(std::string);
-    const std::vector<T1>& (PS::*gm)(std::string) const;
-    mp_instantiate_meta_funcs<L<T...>> next;
-};
-static mp_instantiate_meta_funcs<PMTypes> meta_funcs;
-} // end anon namespace
+#define INSTANTIATE(TYPE) \
+template \
+std::vector<TYPE> NVVL_EXPORT &PictureSequence::get_or_add_meta(std::string); \
+template \
+const std::vector<TYPE> NVVL_EXPORT &PictureSequence::get_meta(std::string) const;
+
+INSTANTIATE(int)
+INSTANTIATE(std::string)
+
+#undef INSTANTIATE
 
 bool PictureSequence::has_meta(std::string name) const {
     return pImpl->has_meta(name);
